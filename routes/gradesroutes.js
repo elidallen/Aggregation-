@@ -1,6 +1,6 @@
 // Import necessary modules and functions
 const express = require('express');
-const { getDB } = require('./db'); // Import your database connection function
+const { getDB } = require('../db/connection'); // Import your database connection function
 
 // Create an Express Router instance
 const router = express.Router();

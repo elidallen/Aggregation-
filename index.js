@@ -1,6 +1,8 @@
+process.setMaxListeners(0);
+
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const { connectToMongoDB, getDB } = require('./db/connection');
 const users = require("./routes/users");
 const posts = require("./routes/posts");
 const gradesRoutes = require("./routes/gradesroutes");
@@ -10,7 +12,6 @@ const { router, collectionName, setupIndexesAndValidation } = require('./db_setu
 
 const app = express();
 const port = 3000;
-
 // Parsing Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
@@ -52,7 +53,6 @@ app.use("/api", function (req, res, next) {
   next();
 });
 
-// Use our Routes
 app.use("/api/users", users);
 app.use("/api/posts", posts);
 app.use('/api/grades', gradesRoutes);
@@ -119,9 +119,13 @@ app.use((err, req, res, next) => {
 });
 
 
+async function startServer() {
+  await connectToMongoDB();
+  setupIndexesAndValidation();
 
-app.listen(port, () => {
-  console.log(`Server listening on port: ${port}.`);
-});
+  app.listen(port, () => {
+    console.log(`Server listening on port: ${port}.`);
+  });
+};
 
-setupIndexesAndValidation();
+startServer();
