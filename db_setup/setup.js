@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
-
+const Grade = require('../models/gradesModel'); // Assuming you have defined the Grade model
 const collectionName = 'grades';
 
 const setupIndexesAndValidation = async () => {
   try {
-    const Grade = mongoose.model('Grade'); // Assuming you have defined the Grade model
+    // Do not redeclare Grade here, use the one imported at the beginning
+    // const Grade = mongoose.model('Grade'); // Remove this line
 
     // Create indexes
     await Grade.createIndexes([
