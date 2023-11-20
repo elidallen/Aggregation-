@@ -1,0 +1,20 @@
+const mongoose = require('mongoose');
+
+const gradesSchema = new mongoose.Schema({
+  class_id: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 300,
+  },
+  learner_id: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  // Add other fields as needed
+});
+
+const Grade = mongoose.model('Grade', gradesSchema);
+
+module.exports = Grade;

@@ -2,13 +2,15 @@ process.setMaxListeners(0);
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const { connectToMongoDB, getDB } = require('./db/connection');
 const users = require("./routes/users");
 const posts = require("./routes/posts");
-const gradesRoutes = require("./routes/gradesroutes");
 const error = require("./utilities/error");
-const { router, collectionName, setupIndexesAndValidation } = require('./db_setup/setup');
 
+
+const { connectToMongoDB } = require('./db/connection');
+const { collectionName, setupIndexesAndValidation } = require('./db_setup/setup'); 
+const Grade = require('./models/gradesModel');
+const gradesRoutes = require("./routes/gradesroutes");
 
 const app = express();
 const port = 3000;
